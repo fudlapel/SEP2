@@ -3,6 +3,7 @@ import axios from 'axios';
 //ACTIONS
 const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS';
 const SET_SINGLE_STUDENT = 'SET_SINGLE_STUDENT';
+const ADD_NEW_STUDENT = 'ADD_NEW_STUDENT';
 
 //ACTION CREATORS
 const fetchAllStudents = students => ({
@@ -12,6 +13,11 @@ const fetchAllStudents = students => ({
 
 const setSingleStudent = student => ({
   type: SET_SINGLE_STUDENT,
+  student,
+});
+
+const setNewStudent = student => ({
+  type: ADD_NEW_STUDENT,
   student,
 });
 
@@ -34,6 +40,15 @@ export const fetchSingleStudent = id => {
   };
 };
 
+export const addNewStudent = student => {
+  return async dispatch => {
+    const res = await axios.post('/api/students', student);
+    const newStudent = res.data;
+    const action = setNewStudent(newStudent);
+    dispatch(action);
+  };
+};
+
 //INITITAL STATE
 const initialState = {
   all: [],
@@ -48,6 +63,8 @@ const studentReducer = (state = initialState, action) => {
       return { ...state, all: action.students };
     case SET_SINGLE_STUDENT:
       return { ...state, single: action.student[0] };
+    case ADD_NEW_STUDENT:
+      return { ...state, all: [...state.all, action.student] };
     default:
       return state;
   }

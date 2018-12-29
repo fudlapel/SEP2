@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import AddStudentForm from './AddStudentForm';
 
 const StudentList = props => {
   const { students } = props;
@@ -16,6 +17,7 @@ const StudentList = props => {
             </Link>
           </div>
         ))}
+      <AddStudentForm />
     </div>
   );
 };

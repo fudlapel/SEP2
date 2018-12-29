@@ -25,3 +25,12 @@ router.get('/:id', async (req, res, next) => {
     next(err);
   }
 });
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newStudent = await Student.create(req.body);
+    res.json(newStudent);
+  } catch (err) {
+    next(err);
+  }
+});

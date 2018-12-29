@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import AddCampusForm from './AddCampusForm';
 
 const CampusList = props => {
   const { campuses } = props;
@@ -14,6 +15,7 @@ const CampusList = props => {
             <img src={campus.imageUrl} />
           </div>
         ))}
+      <AddCampusForm />
     </div>
   );
 };

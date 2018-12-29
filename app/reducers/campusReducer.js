@@ -3,6 +3,7 @@ import axios from 'axios';
 //ACTIONS
 const GET_ALL_CAMPUSES = 'GET_ALL_CAMPUSES';
 const SET_SINGLE_CAMPUS = 'SET_SINGLE_CAMPUS';
+const ADD_NEW_CAMPUS = 'ADD_NEW_CAMPUS';
 
 //ACTION CREATORS
 const fetchAllCampuses = campuses => ({
@@ -12,6 +13,11 @@ const fetchAllCampuses = campuses => ({
 
 const setSingleCampus = campus => ({
   type: SET_SINGLE_CAMPUS,
+  campus,
+});
+
+const setNewCampus = campus => ({
+  type: ADD_NEW_CAMPUS,
   campus,
 });
 
@@ -34,6 +40,15 @@ export const fetchSingleCampus = id => {
   };
 };
 
+export const addNewCampus = campus => {
+  return async dispatch => {
+    const res = await axios.post('api/campuses', campus);
+    const newCampus = res.data;
+    const action = setNewCampus(newCampus);
+    dispatch(action);
+  };
+};
+
 //INTIAL STATE
 const initialState = {
   all: [],
@@ -48,6 +63,8 @@ const campusReducer = (state = initialState, action) => {
       return { ...state, all: action.campuses };
     case SET_SINGLE_CAMPUS:
       return { ...state, single: action.campus[0] };
+    case ADD_NEW_CAMPUS:
+      return { ...state, all: [...state.all, action.campus] };
     default:
       return state;
   }
