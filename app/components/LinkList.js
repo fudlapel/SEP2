@@ -5,15 +5,19 @@ const LinkList = props => {
   const { items } = props;
   return (
     <ul>
-      {items.map(item => {
-        return (
-          <li key={item.id}>
-            <Link to={`/students/${item.id}`}>
-              {item.firstName} {item.lastName}
-            </Link>
-          </li>
-        );
-      })}
+      {items.length ? (
+        items.map(item => {
+          return (
+            <li key={item.id}>
+              <Link to={`/students/${item.id}`}>
+                {item.firstName} {item.lastName}
+              </Link>
+            </li>
+          );
+        })
+      ) : (
+        <li>no students assigned yet!</li>
+      )}
     </ul>
   );
 };

@@ -12,7 +12,7 @@ const CampusList = props => {
       {campuses.length &&
         campuses.map(campus => (
           <div key={campus.id}>
-            <Link to={`/campuses/${campus.id}`}>CampusLink: {campus.name}</Link>
+            <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
             <h1>{campus.name}</h1>
             <img src={campus.imageUrl} />
             <RemoveButton id={campus.id} remove={remove} />

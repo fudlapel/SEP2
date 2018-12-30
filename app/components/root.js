@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllCampuses } from '../reducers/campusReducer';
 import { getAllStudents } from '../reducers/studentReducer';
@@ -29,6 +29,7 @@ class Root extends Component {
             <Route exact path="/campuses" component={CampusList} />
             <Route exact path="/campuses/:id" component={SingleCampus} />
             <Route exact path="/students/:id" component={SingleStudent} />
+            <Redirect to="/home" />
           </Switch>
         </main>
       </div>
