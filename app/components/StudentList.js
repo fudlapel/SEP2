@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import AddStudentForm from './AddStudentForm';
+import RemoveButton from './RemoveButton';
+import { deleteStudent } from '../reducers/studentReducer';
 
 const StudentList = props => {
-  const { students } = props;
+  const { students, remove } = props;
   return (
     <div>
       {students.length &&
@@ -15,6 +17,7 @@ const StudentList = props => {
                 {student.firstName} {student.lastName}
               </h1>
             </Link>
+            <RemoveButton id={student.id} remove={remove} />
           </div>
         ))}
       <AddStudentForm />
@@ -28,4 +31,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(StudentList));
+const mapDispatchToProps = { remove: deleteStudent };
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(StudentList)
+);

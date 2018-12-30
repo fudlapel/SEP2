@@ -34,3 +34,16 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deletedStudent = await Student.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.json(deletedStudent);
+  } catch (err) {
+    next(err);
+  }
+});

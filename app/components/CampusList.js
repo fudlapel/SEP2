@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import AddCampusForm from './AddCampusForm';
+import { deleteCampus } from '../reducers/campusReducer';
+import RemoveButton from './RemoveButton';
 
 const CampusList = props => {
-  const { campuses } = props;
+  const { campuses, remove } = props;
   return (
     <div>
       {campuses.length &&
@@ -13,6 +15,7 @@ const CampusList = props => {
             <Link to={`/campuses/${campus.id}`}>CampusLink: {campus.name}</Link>
             <h1>{campus.name}</h1>
             <img src={campus.imageUrl} />
+            <RemoveButton id={campus.id} remove={remove} />
           </div>
         ))}
       <AddCampusForm />
@@ -26,4 +29,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(CampusList));
+const mapDispatchToProps = { remove: deleteCampus };
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(CampusList)
+);

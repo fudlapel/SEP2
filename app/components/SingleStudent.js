@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { fetchSingleStudent } from '../reducers/studentReducer';
+import StudentDetail from './StudentDetail';
 
 class SingleStudent extends Component {
   componentDidMount() {
@@ -13,24 +14,7 @@ class SingleStudent extends Component {
     const { student } = this.props;
 
     return student.firstName ? (
-      <div>
-        <h4>
-          name: {student.firstName} {student.lastName}
-        </h4>
-        <h4>email: {student.email}</h4>
-        <h4>gpa: {student.gpa}</h4>
-        <h4>
-          campus:{' '}
-          {student.campus ? (
-            <Link to={`/campuses/${student.campus.id}`}>
-              {student.campus.name}
-            </Link>
-          ) : (
-            <p>no campus assigned yet</p>
-          )}
-        </h4>
-        <img src={student.imageUrl} />
-      </div>
+      <StudentDetail student={student} />
     ) : (
       <div>
         <h1>Loading...</h1>

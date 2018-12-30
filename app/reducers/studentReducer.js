@@ -4,6 +4,7 @@ import axios from 'axios';
 const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS';
 const SET_SINGLE_STUDENT = 'SET_SINGLE_STUDENT';
 const ADD_NEW_STUDENT = 'ADD_NEW_STUDENT';
+const REMOVE_STUDENT = 'REMOVE_STUDENT';
 
 //ACTION CREATORS
 const fetchAllStudents = students => ({
@@ -19,6 +20,11 @@ const setSingleStudent = student => ({
 const setNewStudent = student => ({
   type: ADD_NEW_STUDENT,
   student,
+});
+
+const removeStudent = id => ({
+  type: REMOVE_STUDENT,
+  id,
 });
 
 //THUNKS
@@ -49,6 +55,14 @@ export const addNewStudent = student => {
   };
 };
 
+export const deleteStudent = id => {
+  return async dispatch => {
+    await axios.delete(`/api/students/${id}`);
+    const action = removeStudent(id);
+    dispatch(action);
+  };
+};
+
 //INITITAL STATE
 const initialState = {
   all: [],
@@ -65,6 +79,13 @@ const studentReducer = (state = initialState, action) => {
       return { ...state, single: action.student[0] };
     case ADD_NEW_STUDENT:
       return { ...state, all: [...state.all, action.student] };
+    case REMOVE_STUDENT:
+      return {
+        ...state,
+        all: state.all.filter(student => {
+          return student.id !== action.id;
+        }),
+      };
     default:
       return state;
   }

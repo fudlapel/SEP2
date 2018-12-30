@@ -4,6 +4,7 @@ import axios from 'axios';
 const GET_ALL_CAMPUSES = 'GET_ALL_CAMPUSES';
 const SET_SINGLE_CAMPUS = 'SET_SINGLE_CAMPUS';
 const ADD_NEW_CAMPUS = 'ADD_NEW_CAMPUS';
+const REMOVE_CAMPUS = 'REMOVE_CAMPUS';
 
 //ACTION CREATORS
 const fetchAllCampuses = campuses => ({
@@ -19,6 +20,11 @@ const setSingleCampus = campus => ({
 const setNewCampus = campus => ({
   type: ADD_NEW_CAMPUS,
   campus,
+});
+
+const removeCampus = id => ({
+  type: REMOVE_CAMPUS,
+  id,
 });
 
 //THUNKS
@@ -49,6 +55,14 @@ export const addNewCampus = campus => {
   };
 };
 
+export const deleteCampus = id => {
+  return async dispatch => {
+    await axios.delete(`/api/campuses/${id}`);
+    const action = removeCampus(id);
+    dispatch(action);
+  };
+};
+
 //INTIAL STATE
 const initialState = {
   all: [],
@@ -65,6 +79,11 @@ const campusReducer = (state = initialState, action) => {
       return { ...state, single: action.campus[0] };
     case ADD_NEW_CAMPUS:
       return { ...state, all: [...state.all, action.campus] };
+    case REMOVE_CAMPUS:
+      return {
+        ...state,
+        all: state.all.filter(campus => campus.id !== action.id),
+      };
     default:
       return state;
   }
