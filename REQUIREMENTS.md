@@ -4,7 +4,7 @@ The requirements below are broken into separate **tiers**, which model the way w
 
 ### Tier 1: All Campuses and Students (21/57)
 
-<details>
+<!-- <details>
 
 #### Backend
 
@@ -35,11 +35,11 @@ The requirements below are broken into separate **tiers**, which model the way w
 
 Congrats! You have completed your first vertical slice! Make sure to `commit -m "Feature: Get All Campuses and Students"` before moving on (see `RUBRIC.md` - points are awarded/deducted for a proper git workflow)!
 
-</details>
+</details> -->
 
 ### Tier 2: Single Student and Single Campus (14/57)
 
-<details>
+<!-- <details>
 
 #### Backend
 
@@ -65,11 +65,11 @@ Congrats! You have completed your first vertical slice! Make sure to `commit -m 
 Congrats! You have completed your second vertical slice! Make sure to `commit -m "Feature: Get Single Campus and Student"` before moving on (see `RUBRIC.md` - points are awarded/deducted for a proper git workflow)!
 
 
-</details>
+</details> -->
 
 ### Tier 3: Adding a Campus and Adding a Student (12/57)
 
-<details>
+<!-- <details>
 
 #### Backend
 
@@ -93,11 +93,11 @@ Congrats! You have completed your second vertical slice! Make sure to `commit -m
 Congrats! You have completed your third vertical slice! Make sure to `commit -m "Feature: Add Campus and Student"` before moving on (see `RUBRIC.md` - points are awarded/deducted for a proper git workflow)!
 
 
-</details>
+</details> -->
 
 ### Tier 4: Removing a Campus and Removing a Student (10/57)
 
-<details>
+<!-- <details>
 
 #### Backend
 
@@ -119,7 +119,7 @@ Congrats! You have completed your third vertical slice! Make sure to `commit -m 
 Congrats! You have completed your fourth vertical slice! Make sure to `commit -m "Feature: Remove Campus and Student"` before moving on (see `RUBRIC.md` - points are awarded/deducted for a proper git workflow)!
 
 
-</details>
+</details> -->
 
 ### Bonus Tier 1: Finishing Touches (6/16 EC)
 
@@ -128,8 +128,8 @@ Congrats! You have completed your fourth vertical slice! Make sure to `commit -m
 - [ ] If a user attempts to add a new student or campus without a required field, a helpful message should be displayed
 - [ ] If a user attempts to access a page that doesn't exist (ex. `/cafeteria`), a helpful "not found" message should be displayed
 - [ ] If a user attempts to view a student/campus that doesn't exist, a helpful message should be displayed
-- [ ] Whenever a component needs to wait for data to load from the server, a "loading" message should be displayed until the data is available
-- [ ] Has a working `seed` file, that seeds the db with complete student and campus instances.
+  <!-- - [ ] Whenever a component needs to wait for data to load from the server, a "loading" message should be displayed until the data is available -->
+  <!-- - [ ] Has a working `seed` file, that seeds the db with complete student and campus instances. -->
 - [ ] Overall, the app is spectacularly styled and visually stunning
 
 </details>
@@ -148,6 +148,7 @@ Congrats! You have completed your fourth vertical slice! Make sure to `commit -m
 - [ ] Write a component to display a form updating _at least_ a campus's name and address
 - [ ] Display this component as part of the single-campus view
 - Submitting the form with a valid name/address should:
+
   - [ ] Make an AJAX request that causes that campus to be updated in the database
   - [ ] Update the campus in the current view without needing to refresh the page
 

@@ -6,6 +6,9 @@ const SET_SINGLE_CAMPUS = 'SET_SINGLE_CAMPUS';
 const ADD_NEW_CAMPUS = 'ADD_NEW_CAMPUS';
 const REMOVE_CAMPUS = 'REMOVE_CAMPUS';
 
+const CAMPUSES_REQUEST = 'CAMPUSES_REQUEST';
+const CAMPUSES_FAILURE = 'CAMPUSES_FAILURE';
+
 //ACTION CREATORS
 const fetchAllCampuses = campuses => ({
   type: GET_ALL_CAMPUSES,
@@ -27,13 +30,27 @@ const removeCampus = id => ({
   id,
 });
 
+const campusesRequest = () => ({
+  type: CAMPUSES_REQUEST,
+});
+
+const campusesFailure = error => ({
+  type: CAMPUSES_FAILURE,
+  error,
+});
+
 //THUNKS
 export const getAllCampuses = () => {
   return async dispatch => {
-    const res = await axios.get('/api/campuses/');
-    const campuses = res.data;
-    const action = fetchAllCampuses(campuses);
-    dispatch(action);
+    dispatch(campusesRequest());
+    try {
+      const res = await axios.get('/api/campuses/');
+      const campuses = res.data;
+      const action = fetchAllCampuses(campuses);
+      dispatch(action);
+    } catch (err) {
+      dispatch(campusesFailure(err));
+    }
   };
 };
 
@@ -67,6 +84,8 @@ export const deleteCampus = id => {
 const initialState = {
   all: [],
   single: {},
+  loading: false,
+  error: null,
 };
 
 //REDUCER
@@ -74,7 +93,7 @@ const initialState = {
 const campusReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_CAMPUSES:
-      return { ...state, all: action.campuses };
+      return { ...state, all: action.campuses, loading: false };
     case SET_SINGLE_CAMPUS:
       return { ...state, single: action.campus[0] };
     case ADD_NEW_CAMPUS:
@@ -83,6 +102,17 @@ const campusReducer = (state = initialState, action) => {
       return {
         ...state,
         all: state.all.filter(campus => campus.id !== action.id),
+      };
+    case CAMPUSES_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CAMPUSES_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
       };
     default:
       return state;

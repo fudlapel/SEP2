@@ -6,7 +6,19 @@ import { deleteCampus } from '../reducers/campusReducer';
 import RemoveButton from './RemoveButton';
 
 const CampusList = props => {
-  const { campuses, remove } = props;
+  const { campuses, remove, loading, error } = props;
+  if (loading) {
+    return <p>loading, please wait--thank you!</p>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        <p>ERROR, sorry!</p>
+        <pre>{error.message}</pre>{' '}
+      </div>
+    );
+  }
   return (
     <div>
       {campuses.length &&
@@ -26,6 +38,8 @@ const CampusList = props => {
 const mapStateToProps = state => {
   return {
     campuses: state.campuses.all,
+    loading: state.campuses.loading,
+    error: state.campuses.error,
   };
 };
 

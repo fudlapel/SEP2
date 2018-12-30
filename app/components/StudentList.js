@@ -6,7 +6,18 @@ import RemoveButton from './RemoveButton';
 import { deleteStudent } from '../reducers/studentReducer';
 
 const StudentList = props => {
-  const { students, remove } = props;
+  const { students, remove, loading, error } = props;
+  if (loading) {
+    return <p>One moment please, we are loading...</p>;
+  }
+  if (error) {
+    return (
+      <div>
+        <p>Uh-oh, we have an error...</p>
+        <pre>{error.message}</pre>
+      </div>
+    );
+  }
   return (
     <div>
       {students.length &&
@@ -28,6 +39,8 @@ const StudentList = props => {
 const mapStateToProps = state => {
   return {
     students: state.students.all,
+    loading: state.students.loading,
+    error: state.students.error,
   };
 };
 
